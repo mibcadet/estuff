@@ -1,0 +1,21 @@
+<mat-toolbar>
+    <h1>L2 Shop</h1>
+    <div>
+        <mat-menu #basketMenu="matMenu">
+            <button mat-menu-item>Items: 4</button>
+        </mat-menu>
+        <button mat-icon-button [matMenuTriggerFor]="basketMenu">
+            <mat-icon>shopping_cart</mat-icon>
+        </button>
+
+        <mat-menu #appMenu="matMenu">
+            <button mat-menu-item *ngIf="afAuth.authState | async as user; else showLogin" (click)="logout()">Logout</button>
+            <ng-template #showLogin>
+                <button mat-menu-item (click)="login()">Login with Google</button>
+            </ng-template>
+        </mat-menu>
+        <button mat-icon-button [matMenuTriggerFor]="appMenu">
+            <mat-icon>account_circle</mat-icon>
+        </button>
+    </div>
+</mat-toolbar>

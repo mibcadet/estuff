@@ -1,0 +1,19 @@
+:host {
+    height: 100%;
+    display: grid;
+    align-content: stretch;
+    grid-template-columns: 300px auto;
+    grid-template-rows: auto;
+    grid-column-gap: 15px;
+    grid-template-areas: "categories offers";
+}
+
+.categories {
+    background: #F00;
+    grid-area: categories;
+}
+
+.offers {
+    background: #0F0;
+    grid-area: offers;
+}
