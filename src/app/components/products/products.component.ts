@@ -1,18 +1,25 @@
 import { Component, OnInit } from '@angular/core';
+import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
+import { Observable } from 'rxjs/Observable';
+import { Product, ProductType } from '../models/products';
+
 
 @Component({
   selector: 'products',
   templateUrl: './products.component.html',
   styleUrls: ['./products.component.scss']
 })
-export class ProductsComponent implements OnInit {
+export class ProductsComponent {
 
-  items :Number[];
+  private productsCollection: AngularFirestoreCollection<Product>;
+  products: Observable<Product[]>;
 
-  constructor() {
-    this.items = [1, 2, 3, 4, 5, 6, 1, 2, 3, 4, 5, 6, 1, 2, 3, 4, 5, 6];
+  constructor(private afs: AngularFirestore) {
+    this.productsCollection = afs.collection<Product>('products');
+    this.products = this.productsCollection.valueChanges();
   }
 
-  ngOnInit() {
+  removeProduct(product: Product) {
+    return this.productsCollection.doc(product.id).delete();
   }
 }

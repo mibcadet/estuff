@@ -1,9 +1,14 @@
 <mat-card>
-    <mat-list>
-        <mat-list-item *ngFor="let item of items">
-            <mat-icon mat-list-icon>money</mat-icon>
-            <h4 mat-line>some item</h4>
-            <p mat-line>description of some item</p>
-        </mat-list-item>
-    </mat-list>
+    <mat-card-subtitle>Category_name</mat-card-subtitle>
+    <mat-card-content>
+        <add-product></add-product>
+        <mat-list>
+            <mat-list-item *ngFor="let product of products | async">
+                <mat-icon mat-list-icon>money</mat-icon>
+                <h4 mat-line>{{product.name}}</h4>
+                <p mat-line>{{product.category}}</p>
+                <p mat-line>{{product.price}}$</p>
+            </mat-list-item>
+        </mat-list>
+    </mat-card-content>
 </mat-card>

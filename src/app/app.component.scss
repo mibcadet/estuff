@@ -1,14 +1,13 @@
 .app-root {
     height: 100%;
     display: grid;
-    align-content: stretch;
     grid-template-columns: 1fr 2fr 18fr 2fr 1fr;
-    grid-template-rows: 64px 100px auto 20px 64px;
+    grid-template-rows: 64px 80px auto 64px;
+    grid-row-gap: 20px;
     grid-template-areas:
         "app-menu app-menu app-menu app-menu app-menu"
         ". . app-header . ."
         ". . app-main . ."
-        ". . . . ."
         "app-footer app-footer app-footer app-footer app-footer ";
 }
 

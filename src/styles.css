@@ -8,3 +8,16 @@ html, body, app-root {
     width: 100%;
 }
 
+html {
+    background: url('https://www.walldevil.com/wallpapers/a41/chronicle-chaotic-lineage-backgrounds-wallpaper-wallpapers-games-images.jpg') no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}

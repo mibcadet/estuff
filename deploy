@@ -1,0 +1,1 @@
+ng build --aot --prod && cd dist && zip dist * && ssh dev 'rm stanx/*' && scp dist.zip dev:~/stanx && ssh dev 'cd stanx && unzip dist.zip' && cd ..

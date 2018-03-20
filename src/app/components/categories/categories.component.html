@@ -1,9 +1,12 @@
 <mat-card>
-    <h2>Categories</h2>
-    <mat-selection-list #shoes>
-        <mat-list-option> Adena </mat-list-option>
-        <mat-list-option> Armor </mat-list-option>
-        <mat-list-option> Weapon </mat-list-option>
-        <mat-list-option> Supplies </mat-list-option>
+    <mat-card-title>Add category</mat-card-title>
+    <add-category></add-category>
+</mat-card>
+<mat-card>
+    <mat-card-title>Categories</mat-card-title>
+    <mat-selection-list>
+        <mat-list-option *ngFor="let category of categories | async">
+            {{ category.name }}
+        </mat-list-option>
     </mat-selection-list>
 </mat-card>
