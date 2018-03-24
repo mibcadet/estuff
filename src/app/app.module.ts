@@ -5,7 +5,6 @@ import { FormsModule } from '@angular/forms';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
-import { AngularFirestore } from 'angularfire2/firestore';
 
 import { environment } from '../environments/environment';
 import { firebase } from '../environments/firebase.conf';
@@ -58,9 +57,10 @@ import { AddCategoryComponent } from './components/categories/add-category/add-c
     MatSelectModule,
     MatRadioModule,
     AngularFireModule.initializeApp(firebase),
+    AngularFirestoreModule,
     AngularFireAuthModule
   ],
-  providers: [AngularFirestore],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
