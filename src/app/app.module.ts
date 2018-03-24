@@ -19,6 +19,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
+import { MatRadioModule } from '@angular/material/radio';
 
 import { AppComponent } from './app.component';
 import { AppMenuComponent } from './app-menu/app-menu.component';
@@ -55,6 +56,7 @@ import { AddCategoryComponent } from './components/categories/add-category/add-c
     MatDialogModule,
     MatInputModule,
     MatSelectModule,
+    MatRadioModule,
     AngularFireModule.initializeApp(firebase),
     AngularFireAuthModule
   ],

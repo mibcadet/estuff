@@ -1,2 +1,14 @@
 :host {
+    display: flex;
+    flex-direction: column;
+}
+
+mat-radio-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.categories {
+    flex: 1 1 auto;
+    margin-bottom: 20px;
 }

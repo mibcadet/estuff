@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
 import { Observable } from 'rxjs/Observable';
-import { Product, ProductType } from '../../models/products';
+import { Product } from '../../models/products';
 import { Category } from '../../models/categories';
 
 @Component({
@@ -15,7 +15,6 @@ export class AddProductComponent {
     name: '',
     price: 0
   }
-  typeNames: string[] = Object.keys(ProductType).map(key => ProductType[key]).filter(value => typeof value === 'string') as string[];
   categories: Observable<Category[]>;
 
   private productsCollection: AngularFirestoreCollection<Product>;
@@ -28,9 +27,7 @@ export class AddProductComponent {
   }
 
   addProduct() {
-    return this.productsCollection.add(this.product)
-      .then(addedProduct => {
-        return addedProduct.update({ id: addedProduct.id });
-      });
+    this.product.id = this.afs.createId();
+    this.productsCollection.add(this.product);
   }
 }

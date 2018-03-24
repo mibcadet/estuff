@@ -6,9 +6,7 @@
 </mat-form-field>
 <mat-form-field>
     <mat-select placeholder="Category of product" [(value)]="product.category">
-        <mat-option *ngFor="let category of categories | async" [value]="category.name">
-            {{ category.name }}
-        </mat-option>
+        <mat-option *ngFor="let category of categories | async" [value]="category.name">{{category.name}}</mat-option>
     </mat-select>
 </mat-form-field>
 <button disabled="{{!product.name || !product.price || !product.category}}" mat-mini-fab (click)="addProduct()"><mat-icon>add</mat-icon></button> 

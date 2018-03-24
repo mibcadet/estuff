@@ -1,2 +1,10 @@
-<categories class="categories"></categories>
-<products class="products"></products>
+<mat-card class="add-categories">
+    <mat-card-title>Add category</mat-card-title>
+    <add-category></add-category>
+</mat-card>
+<mat-card class="add-products">
+    <mat-card-title>Add product</mat-card-title>
+    <add-product></add-product>
+</mat-card>
+<categories class="categories" (selectCategoryEvent)="recieveEvent($event)"></categories>
+<products class="products" [categoriesFilter]="categoriesFilter"></products>

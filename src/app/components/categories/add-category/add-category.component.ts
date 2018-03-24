@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
-//import { Observable } from 'rxjs/Observable';
 import { Category } from '../../models/categories';
 
 
@@ -23,9 +22,7 @@ export class AddCategoryComponent {
 
 
   addCategory() {
-    return this.categoriesCollection.add(this.category)
-      .then(addedCategory => {
-        return addedCategory.update({ id: addedCategory.id });
-      });
+    this.category.id = this.afs.createId();
+    this.categoriesCollection.add(this.category);
   }
 }

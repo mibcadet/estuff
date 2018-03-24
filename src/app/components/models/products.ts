@@ -1,5 +1,4 @@
 import { Platform } from './platforms';
-import { Category } from './categories';
 
 export interface Product {
   id?: string;
@@ -7,9 +6,7 @@ export interface Product {
   price: Number;
   image?: string;
   description?: string;
-  category?: Category;
+  category?: string;
   key?: string;
   platform?: Platform;
 }
-
-export enum ProductType { Key, Item, Service }

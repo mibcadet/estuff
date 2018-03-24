@@ -1,12 +1,13 @@
-<mat-card>
-    <mat-card-title>Add category</mat-card-title>
-    <add-category></add-category>
-</mat-card>
-<mat-card>
+<mat-card class="categories">
     <mat-card-title>Categories</mat-card-title>
-    <mat-selection-list>
-        <mat-list-option *ngFor="let category of categories | async">
+    <mat-radio-group [(ngModel)]="selectedCategory">
+        <mat-radio-button *ngFor="let category of categories | async" [value]="category.name" (change)="selectCategory(category.name)">
             {{ category.name }}
-        </mat-list-option>
-    </mat-selection-list>
+        </mat-radio-button>
+    </mat-radio-group>
+    <mat-card-actions>
+        <button *ngIf="selectedCategory" mat-icon-button (click)="clearSelectedCategory()" color="primary">
+            <mat-icon aria-label="Clear selection">clear</mat-icon>
+        </button>
+    </mat-card-actions>
 </mat-card>
