@@ -6,8 +6,9 @@
         </mat-radio-button>
     </mat-radio-group>
     <mat-card-actions>
-        <button *ngIf="selectedCategory" mat-icon-button (click)="clearSelectedCategory()" color="primary">
+        <button *ngIf="selectedCategory" mat-raised-button (click)="clearSelectedCategory()" color="primary">
             <mat-icon aria-label="Clear selection">clear</mat-icon>
+            <span>Clear</span>
         </button>
     </mat-card-actions>
 </mat-card>

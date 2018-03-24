@@ -5,7 +5,7 @@ import { Category } from '../models/categories';
 
 
 @Component({
-  selector: 'categories',
+  selector: 'app-categories',
   templateUrl: './categories.component.html',
   styleUrls: ['./categories.component.scss']
 })

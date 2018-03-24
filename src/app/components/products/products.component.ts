@@ -5,7 +5,7 @@ import { Subject } from 'rxjs/Subject';
 import { Product } from '../models/products';
 
 @Component({
-  selector: 'products',
+  selector: 'app-products',
   templateUrl: './products.component.html',
   styleUrls: ['./products.component.scss']
 })
@@ -19,10 +19,11 @@ export class ProductsComponent implements AfterViewInit {
   category$ = new Subject<string>();
 
   constructor(private afs: AngularFirestore) {
+    this.productsCollection = afs.collection<Product>('products');
+
     const catObs = this.category$
       .switchMap(category => afs.collection('products', (productRef) => {
-        if (category) return productRef.where('category', '==', category);
-        else return productRef.orderBy('price', 'desc');
+        if (category) { return productRef.where('category', '==', category); } else { return productRef.orderBy('price', 'desc'); }
       }).valueChanges());
 
     catObs.subscribe((products: Product[]) => {

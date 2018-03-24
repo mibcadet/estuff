@@ -1,10 +1,10 @@
 <mat-card class="add-categories">
     <mat-card-title>Add category</mat-card-title>
-    <add-category></add-category>
+    <app-add-category></app-add-category>
 </mat-card>
 <mat-card class="add-products">
     <mat-card-title>Add product</mat-card-title>
-    <add-product></add-product>
+    <app-add-product></app-add-product>
 </mat-card>
-<categories class="categories" (selectCategoryEvent)="recieveEvent($event)"></categories>
-<products class="products" [categoriesFilter]="categoriesFilter"></products>
+<app-categories class="categories" (selectCategoryEvent)="recieveEvent($event)"></app-categories>
+<app-products class="products" [categoriesFilter]="categoriesFilter"></app-products>

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ViewChild, AfterViewInit } from '@angular/core';
-import { CategoriesComponent } from "../components/categories/categories.component";
+import { CategoriesComponent } from '../components/categories/categories.component';
 
 @Component({
   selector: 'app-main',
@@ -10,7 +10,7 @@ import { CategoriesComponent } from "../components/categories/categories.compone
 export class AppMainComponent implements AfterViewInit {
   @ViewChild(CategoriesComponent) categories;
 
-  categoriesFilter: string = '';
+  categoriesFilter = '';
 
   constructor() { }
 
@@ -18,7 +18,6 @@ export class AppMainComponent implements AfterViewInit {
   }
 
   recieveEvent($event) {
-    console.log('event', $event);
     this.categoriesFilter = $event;
   }
 }

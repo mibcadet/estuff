@@ -5,7 +5,7 @@ import { Product } from '../../models/products';
 import { Category } from '../../models/categories';
 
 @Component({
-  selector: 'add-product',
+  selector: 'app-add-product',
   templateUrl: './add-product.component.html',
   styleUrls: ['./add-product.component.scss']
 })
@@ -14,7 +14,7 @@ export class AddProductComponent {
   product: Product = {
     name: '',
     price: 0
-  }
+  };
   categories: Observable<Category[]>;
 
   private productsCollection: AngularFirestoreCollection<Product>;

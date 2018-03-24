@@ -21,3 +21,7 @@ body {
     flex-direction: column;
     justify-content: flex-start;
 }
+
+button {
+    user-select: none;
+}

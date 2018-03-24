@@ -1,17 +1,25 @@
-<mat-card>
+<mat-card class="products-list">
     <mat-card-subtitle>
         Selected category:
         <span>&nbsp;{{categoriesFilter}}&nbsp;</span>
     </mat-card-subtitle>
     <mat-card-content>
-        <mat-list>
-            <mat-list-item *ngFor="let product of products">
-                <mat-icon mat-list-icon>money</mat-icon>
-                <h4 mat-line>{{product.name}}</h4>
-                <p mat-line>{{product.category}}</p>
-                <p mat-line>{{product.price}}$</p>
-                <mat-icon (click)="removeProduct(product)" >trash</mat-icon>
-            </mat-list-item>
-        </mat-list>
+        <div class="product-item" *ngFor="let product of products">
+            <img class="product-mini-img" src="https://i.imgur.com/ICQ6ESp.png">
+            <div class="product-info">
+                <div class="product-name">
+                    {{product.name}}
+                </div>
+                <div class="product-category">
+                    {{product.category}}
+                </div>
+            </div>
+            <span class="product-price">{{product.price}}$</span>
+            <span class="product-options">
+                <button mat-icon-button color="warn" (click)="removeProduct(product)">
+                    <mat-icon>delete_forever</mat-icon>
+                </button>
+            </span>
+        </div>
     </mat-card-content>
 </mat-card>
