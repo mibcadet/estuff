@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
 import { Product } from '../../models/products';
 import { DatabaseService, Query } from '../../services/database.service';
-import { AuthService } from '../../modules/Authorization/auth.service';
+import { AuthService } from '../../modules/authorization/auth.service';
 import { User } from '../../models/user';
 
 @Component({

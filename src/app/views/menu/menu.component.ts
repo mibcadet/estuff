@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { AuthService } from '../../modules/Authorization/auth.service';
+import { AuthService } from '../../modules/authorization/auth.service';
 
 @Component({
   selector: 'app-menu',
-  templateUrl: './app-menu.component.html',
-  styleUrls: ['./app-menu.component.scss'],
+  templateUrl: './menu.component.html',
+  styleUrls: ['./menu.component.scss'],
   providers: [ AuthService ]
 })
 export class AppMenuComponent {

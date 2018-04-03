@@ -2,7 +2,7 @@ import { Component, Output, EventEmitter } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
 import { Category } from '../../models/categories';
 import { DatabaseService } from '../../services/database.service';
-import { AuthService } from '../../modules/Authorization/auth.service';
+import { AuthService } from '../../modules/authorization/auth.service';
 
 
 @Component({
