@@ -1,28 +1,27 @@
 import { Component, Output, EventEmitter } from '@angular/core';
-import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
-import { Observable } from 'rxjs/Observable';
-import { Category } from '../models/categories';
+import { Subject } from 'rxjs/Subject';
+import { Category } from '../../models/categories';
+import { DatabaseService } from '../../services/database.service';
+import { AuthService } from '../../modules/Authorization/auth.service';
 
 
 @Component({
   selector: 'app-categories',
   templateUrl: './categories.component.html',
-  styleUrls: ['./categories.component.scss']
+  styleUrls: ['./categories.component.scss'],
+  providers: [DatabaseService, AuthService]
 })
+
 export class CategoriesComponent {
   @Output() selectCategoryEvent = new EventEmitter<string>();
 
-  private categoriesCollection: AngularFirestoreCollection<Category>;
-  categories: Observable<Category[]>;
+  readonly COLLECTION = 'categories';
   selectedCategory: string;
+  categories: Category[] = [];
 
-  constructor(private afs: AngularFirestore) {
-    this.categoriesCollection = afs.collection<Category>('categories');
-    this.categories = this.categoriesCollection.valueChanges();
-  }
-
-  removeCategory(category: Category) {
-    return this.categoriesCollection.doc(category.id).update({ disabled: true });
+  constructor(private db: DatabaseService, private auth: AuthService) {
+    this.db.getItems(this.COLLECTION)
+      .subscribe((categories: Category[]) => this.categories = categories);
   }
 
   selectCategory(categoryName) {
@@ -32,5 +31,10 @@ export class CategoriesComponent {
   clearSelectedCategory() {
     this.selectedCategory = '';
     this.selectCategoryEvent.emit(this.selectedCategory);
+  }
+
+  remove(category) {
+    this.db.removeItem(this.COLLECTION, category.id)
+      .then(() => this.clearSelectedCategory());
   }
 }

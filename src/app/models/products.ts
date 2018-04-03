@@ -1,7 +1,7 @@
 import { Platform } from './platforms';
 
 export interface Product {
-  id?: string;
+  id: string;
   name: string;
   price: Number;
   image?: string;

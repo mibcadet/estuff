@@ -1,7 +1,30 @@
 :host {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 40px;
-    grid-template-rows: 50px;
-    grid-column-gap: 10px;
-    align-items: center;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 40px;
+  grid-template-rows: 50px 50px;
+  grid-column-gap: 10px;
+  grid-template-areas:
+    "name price category action"
+    "image image image action";
+  align-items: center;
+}
+
+.name {
+  grid-area: name;
+}
+
+.price {
+  grid-area: price;
+}
+
+.category {
+  grid-area: category;
+}
+
+.image {
+  grid-area: image;
+}
+
+.action {
+  grid-area: action;
 }

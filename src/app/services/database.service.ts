@@ -3,9 +3,17 @@ import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/fires
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 
-export interface dbFilter {
+@Injectable()
+export class Query {
   field: string;
   value: Subject<string>;
+  order?: 'asc' | 'desc';
+
+  constructor(field, value, order?) {
+    this.field = field;
+    this.value = value;
+    this.order = order || 'desc';
+  }
 }
 
 @Injectable()
@@ -14,15 +22,33 @@ export class DatabaseService {
   constructor(private afs: AngularFirestore) {
   }
 
-  getItems(collection: string, filter: dbFilter) {
-    return filter.value
-      .switchMap(items => this.afs.collection(collection, (itemRef) => {
-        if (items)
-          return itemRef.where(filter.field, '==', items);
-        return itemRef;
-      }).valueChanges());
+  getDatabase(collection: string) {
+    return this.afs.collection(collection);
   }
 
-  ngAfterViewInit() {
+  getItems(collection: string, query?: Query) {
+    if (query) {
+      return query.value.switchMap(filter => this.getItemsCollection(collection, query, filter));
+    }
+    return this.afs.collection(collection).valueChanges();
+  }
+
+  getItemsCollection(collection, query, filter) {
+    return this.afs.collection(collection, (itemRef) => {
+      if (filter) {
+        return itemRef.where(query.field, '==', filter);
+      }
+      const order = query.order || 'desc';
+      return itemRef.orderBy(query.field, order);
+    }).valueChanges();
+  }
+
+  removeItem(collection: string, id: string) {
+    return this.afs.collection(collection).doc(id).delete();
+  }
+
+  addItem(collection: string, item) {
+    return this.afs.collection(collection).add(item)
+      .then(newItem => this.afs.collection(collection).doc(newItem.id).update({ id: newItem.id }));
   }
 }

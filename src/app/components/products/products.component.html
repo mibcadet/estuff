@@ -1,11 +1,11 @@
-<mat-card class="products-list">
+<mat-card class="products-list" *ngIf="!isLoading">
     <mat-card-subtitle>
         Selected category:
         <span>&nbsp;{{categoriesFilter}}&nbsp;</span>
     </mat-card-subtitle>
     <mat-card-content>
-        <div class="product-item" *ngFor="let product of products">
-            <img class="product-mini-img" src="https://i.imgur.com/ICQ6ESp.png">
+        <div class="product-item" *ngFor="let product of products;">
+          <img class="product-mini-img" src="{{ product.image || defaultImage }}">
             <div class="product-info">
                 <div class="product-name">
                     {{product.name}}
@@ -16,10 +16,16 @@
             </div>
             <span class="product-price">{{product.price}}$</span>
             <span class="product-options">
-                <button mat-icon-button color="warn" (click)="removeProduct(product)">
-                    <mat-icon>delete_forever</mat-icon>
-                </button>
+              <button mat-icon-button color="accent" (click)="addToCart(product)">
+                <mat-icon>add_shopping_cart</mat-icon>
+              </button>
+              <button *ngIf="canEdit()" mat-icon-button color="warn" (click)="removeProduct(product)">
+                <mat-icon>delete_forever</mat-icon>
+              </button>
             </span>
         </div>
     </mat-card-content>
+</mat-card>
+<mat-card class="products-loading" *ngIf="isLoading">
+    <mat-spinner></mat-spinner>
 </mat-card>

@@ -1,39 +1,50 @@
-import { Component, Input } from '@angular/core';
-import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
-import { Observable } from 'rxjs/Observable';
+import { Component, Input, OnInit } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
-import { Product } from '../models/products';
-import { DatabaseService, dbFilter } from '../../services/database.service';
+import { Product } from '../../models/products';
+import { DatabaseService, Query } from '../../services/database.service';
+import { AuthService } from '../../modules/Authorization/auth.service';
+import { User } from '../../models/user';
 
 @Component({
   selector: 'app-products',
   templateUrl: './products.component.html',
   styleUrls: ['./products.component.scss'],
-  providers: [DatabaseService]
+  providers: [DatabaseService, AuthService]
 })
 
-export class ProductsComponent {
+export class ProductsComponent implements OnInit {
   @Input() set categoriesFilter(filter) {
+    this.isLoading = true;
     this.category$.next(filter);
   }
 
   category$ = new Subject<string>();
-  products: Product[] = [];
   readonly COLLECTION = 'products';
-  readonly QUERY = {
-    field: 'category',
-    value: this.category$
-  }
+  readonly QUERY = new Query('category', this.category$);
+  user: User;
+  products: Product[] = [];
+  isLoading = false;
+  defaultImage = 'https://i.imgur.com/ICQ6ESp.png';
 
-  constructor(private db: DatabaseService) {
+  constructor(private db: DatabaseService, private auth: AuthService) {
     this.db.getItems(this.COLLECTION, this.QUERY)
-      .subscribe((products: Product[]) => this.setProducts);
+      .subscribe((products: Product[]) => {
+        this.products = products;
+        this.isLoading = false;
+      });
   }
 
-  private setProducts(products: Product[]) {
-    this.products = products;
+  ngOnInit() {
+    this.auth.user$.subscribe(user => {
+      this.user = user;
+    });
   }
 
-  removeProduct(product: Product) {
+  canEdit() {
+    return this.auth.canEdit(this.user);
+  }
+
+  removeProduct(product) {
+    this.db.removeItem(this.COLLECTION, product.id);
   }
 }

@@ -1,33 +1,36 @@
 import { Component } from '@angular/core';
-import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
-import { Observable } from 'rxjs/Observable';
-import { Product } from '../../models/products';
-import { Category } from '../../models/categories';
+import { Product } from '../../../models/products';
+import { Category } from '../../../models/categories';
+import { DatabaseService } from '../../../services/database.service';
 
 @Component({
   selector: 'app-add-product',
   templateUrl: './add-product.component.html',
-  styleUrls: ['./add-product.component.scss']
+  styleUrls: ['./add-product.component.scss'],
+  providers: [ DatabaseService ]
 })
 export class AddProductComponent {
 
+  readonly CATEGORIES_COLLECTION = 'categories';
+  readonly PRODUCTS_COLLECTION = 'products';
   product: Product = {
+    id: '',
     name: '',
-    price: 0
+    price: 0,
+    image: ''
   };
-  categories: Observable<Category[]>;
+  categories: Category[] = [];
 
-  private productsCollection: AngularFirestoreCollection<Product>;
-  private categoriesCollection: AngularFirestoreCollection<Category>;
+  constructor(private db: DatabaseService) {
+    db.getItems(this.CATEGORIES_COLLECTION)
+      .subscribe((categories: Category[]) => this.setCategories(categories));
+  }
 
-  constructor(private afs: AngularFirestore) {
-    this.productsCollection = afs.collection<Product>('products');
-    this.categoriesCollection = afs.collection<Category>('categories');
-    this.categories = this.categoriesCollection.valueChanges();
+  setCategories(categories: Category[]) {
+    this.categories = categories;
   }
 
   addProduct() {
-    this.product.id = this.afs.createId();
-    this.productsCollection.add(this.product);
+    this.db.addItem(this.PRODUCTS_COLLECTION, this.product);
   }
 }

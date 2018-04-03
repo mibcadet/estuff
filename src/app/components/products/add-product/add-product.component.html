@@ -1,12 +1,15 @@
-<mat-form-field>
+<mat-form-field class="name">
     <input matInput type="text" name="name" placeholder="Name" [(ngModel)]="product.name">
 </mat-form-field>
-<mat-form-field>
+<mat-form-field class="price">
     <input matInput type="number" name="price" placeholder="Price" [(ngModel)]="product.price">
 </mat-form-field>
-<mat-form-field>
+<mat-form-field class="category">
     <mat-select placeholder="Category of product" [(value)]="product.category">
-        <mat-option *ngFor="let category of categories | async" [value]="category.name">{{category.name}}</mat-option>
+        <mat-option *ngFor="let category of categories" [value]="category.name">{{category.name}}</mat-option>
     </mat-select>
 </mat-form-field>
-<button disabled="{{!product.name || !product.price || !product.category}}" mat-mini-fab (click)="addProduct()"><mat-icon>add</mat-icon></button> 
+<mat-form-field class="image">
+  <input matInput type="text" name="image" placeholder="Image URL" [(ngModel)]="product.image">
+</mat-form-field>
+<button class="action" disabled="{{!product.name || !product.price || !product.category}}" mat-mini-fab (click)="addProduct()"><mat-icon>add</mat-icon></button>

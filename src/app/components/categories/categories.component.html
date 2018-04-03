@@ -1,8 +1,11 @@
 <mat-card class="categories">
     <mat-card-title>Categories</mat-card-title>
     <mat-radio-group [(ngModel)]="selectedCategory">
-        <mat-radio-button *ngFor="let category of categories | async" [value]="category.name" (change)="selectCategory(category.name)">
-            {{ category.name }}
+        <mat-radio-button *ngFor="let category of categories" [value]="category.name" (change)="selectCategory(category.name)">
+          <div class="category" >
+            <mat-icon *ngIf="auth.isLoggedIn()" aria-label="delete" (click)="remove(category)">delete_forever</mat-icon>
+            <span>{{ category.name }}</span>
+          </div>
         </mat-radio-button>
     </mat-radio-group>
     <mat-card-actions>

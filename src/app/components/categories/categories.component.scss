@@ -12,3 +12,9 @@ mat-radio-group {
     flex: 1 1 auto;
     margin-bottom: 20px;
 }
+
+.category {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}

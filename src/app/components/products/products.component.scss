@@ -43,10 +43,20 @@ $product-mini-img-size: 80px;
 
 .product-options {
     grid-area: "product-options";
-    text-align: center;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-around;
+    align-items: center;
 }
 
-.products-list {
+.products-list, .products-loading {
     flex: 1 1 auto;
     margin-bottom: 20px;
+}
+
+.products-loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
