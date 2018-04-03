@@ -1,18 +1,17 @@
 import { Component } from '@angular/core';
 import { Product } from '../../../models/products';
 import { Category } from '../../../models/categories';
-import { DatabaseService } from '../../../services/database.service';
+import { CategoriesService } from '../../../services/categories.service';
+import { ProductsService } from '../../../services/products.service';
 
 @Component({
   selector: 'app-add-product',
   templateUrl: './add-product.component.html',
   styleUrls: ['./add-product.component.scss'],
-  providers: [ DatabaseService ]
+  providers: [CategoriesService, ProductsService]
 })
 export class AddProductComponent {
 
-  readonly CATEGORIES_COLLECTION = 'categories';
-  readonly PRODUCTS_COLLECTION = 'products';
   product: Product = {
     id: '',
     name: '',
@@ -21,8 +20,8 @@ export class AddProductComponent {
   };
   categories: Category[] = [];
 
-  constructor(private db: DatabaseService) {
-    db.getItems(this.CATEGORIES_COLLECTION)
+  constructor(private categoriesDb: CategoriesService, private productsDb: ProductsService) {
+    this.categoriesDb.find()
       .subscribe((categories: Category[]) => this.setCategories(categories));
   }
 
@@ -31,6 +30,6 @@ export class AddProductComponent {
   }
 
   addProduct() {
-    this.db.addItem(this.PRODUCTS_COLLECTION, this.product);
+    this.productsDb.insert(this.product);
   }
 }

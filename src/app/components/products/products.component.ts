@@ -1,15 +1,16 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { Subject } from 'rxjs/Subject';
-import { Product } from '../../models/products';
-import { DatabaseService, Query } from '../../services/database.service';
 import { AuthService } from '../../modules/authorization/auth.service';
+import { Component, Input, OnInit } from '@angular/core';
+import { Product } from '../../models/products';
+import { ProductsService } from '../../services/products.service';
+import { Query } from '../../models/query';
+import { Subject } from 'rxjs/Subject';
 import { User } from '../../models/user';
 
 @Component({
   selector: 'app-products',
   templateUrl: './products.component.html',
   styleUrls: ['./products.component.scss'],
-  providers: [DatabaseService, AuthService]
+  providers: [AuthService, ProductsService]
 })
 
 export class ProductsComponent implements OnInit {
@@ -19,15 +20,14 @@ export class ProductsComponent implements OnInit {
   }
 
   category$ = new Subject<string>();
-  readonly COLLECTION = 'products';
-  readonly QUERY = new Query('category', this.category$);
   user: User;
   products: Product[] = [];
   isLoading = false;
-  defaultImage = 'https://i.imgur.com/ICQ6ESp.png';
+  defaultImage = 'https://i.imgur.com/ICQ6ESp.png'; // to be removed from here
 
-  constructor(private db: DatabaseService, private auth: AuthService) {
-    this.db.getItems(this.COLLECTION, this.QUERY)
+  constructor(private auth: AuthService, private db: ProductsService) {
+
+    this.db.find({ field: 'category', value: this.category$})
       .subscribe((products: Product[]) => {
         this.products = products;
         this.isLoading = false;
@@ -45,6 +45,6 @@ export class ProductsComponent implements OnInit {
   }
 
   removeProduct(product) {
-    this.db.removeItem(this.COLLECTION, product.id);
+    this.db.remove(product.id);
   }
 }

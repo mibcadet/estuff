@@ -1,7 +1,7 @@
 import { Component, Output, EventEmitter } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
 import { Category } from '../../models/categories';
-import { DatabaseService } from '../../services/database.service';
+import { CategoriesService } from '../../services/categories.service';
 import { AuthService } from '../../modules/authorization/auth.service';
 
 
@@ -9,7 +9,7 @@ import { AuthService } from '../../modules/authorization/auth.service';
   selector: 'app-categories',
   templateUrl: './categories.component.html',
   styleUrls: ['./categories.component.scss'],
-  providers: [DatabaseService, AuthService]
+  providers: [AuthService, CategoriesService]
 })
 
 export class CategoriesComponent {
@@ -19,8 +19,8 @@ export class CategoriesComponent {
   selectedCategory: string;
   categories: Category[] = [];
 
-  constructor(private db: DatabaseService, private auth: AuthService) {
-    this.db.getItems(this.COLLECTION)
+  constructor(private auth: AuthService, private db: CategoriesService) {
+    this.db.find()
       .subscribe((categories: Category[]) => this.categories = categories);
   }
 
@@ -34,7 +34,7 @@ export class CategoriesComponent {
   }
 
   remove(category) {
-    this.db.removeItem(this.COLLECTION, category.id)
+    this.db.remove(category.id)
       .then(() => this.clearSelectedCategory());
   }
 }

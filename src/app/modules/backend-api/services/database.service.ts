@@ -1,20 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
 import { Observable } from 'rxjs/Observable';
-import { Subject } from 'rxjs/Subject';
-
-@Injectable()
-export class Query {
-  field: string;
-  value: Subject<string>;
-  order?: 'asc' | 'desc';
-
-  constructor(field, value, order?) {
-    this.field = field;
-    this.value = value;
-    this.order = order || 'desc';
-  }
-}
+import { Query } from '../../../models/query';
 
 @Injectable()
 export class DatabaseService {
