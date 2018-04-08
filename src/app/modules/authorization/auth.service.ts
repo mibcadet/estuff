@@ -27,6 +27,13 @@ export class AuthService {
     return !!this.afAuth.auth.currentUser;
   }
 
+  getCurrentUserId(): string {
+    if (this.isLoggedIn()) {
+      return this.afAuth.auth.currentUser.uid.toString();
+    }
+    return '';
+  }
+
   canRead(user: User): boolean {
     const allowed = ['admin', 'editor', 'subscriber'];
     return this.checkAuthorization(user, allowed);

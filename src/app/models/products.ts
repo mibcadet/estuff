@@ -3,7 +3,7 @@ import { Platform } from './platforms';
 export interface Product {
   id: string;
   name: string;
-  price: Number;
+  price: number;
   image?: string;
   description?: string;
   category?: string;

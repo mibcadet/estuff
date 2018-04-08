@@ -38,4 +38,8 @@ export class DatabaseService {
     return this.afs.collection(collection).add(item)
       .then(newItem => this.afs.collection(collection).doc(newItem.id).update({ id: newItem.id }));
   }
+
+  updateItem(collection: string, updateQuery) {
+    return this.afs.collection(collection).doc(updateQuery.itemId).update(updateQuery.changes);
+  }
 }
