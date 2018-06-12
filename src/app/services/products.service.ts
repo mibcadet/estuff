@@ -6,17 +6,17 @@ export class ProductsService {
 
   readonly COLLECTION_NAME = 'products';
 
-  constructor(private db: DatabaseService) {}
+  constructor(private productsDb: DatabaseService) {}
 
   find(query) {
-    return this.db.getItems(this.COLLECTION_NAME, query);
+    return this.productsDb.getItems(this.COLLECTION_NAME, query);
   }
 
   insert(product) {
-    return this.db.addItem(this.COLLECTION_NAME, product);
+    return this.productsDb.addItem(this.COLLECTION_NAME, product);
   }
 
   remove(id) {
-    return this.db.removeItem(this.COLLECTION_NAME, id);
+    return this.productsDb.removeItem(this.COLLECTION_NAME, id);
   }
 }

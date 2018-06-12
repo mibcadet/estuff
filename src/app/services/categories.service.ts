@@ -6,17 +6,17 @@ export class CategoriesService {
 
   readonly COLLECTION_NAME = 'categories';
 
-  constructor(private db: DatabaseService) {}
+  constructor(private categoriesDb: DatabaseService) {}
 
   find(query?) {
-    return this.db.getItems(this.COLLECTION_NAME, query);
+    return this.categoriesDb.getItems(this.COLLECTION_NAME, query);
   }
 
   insert(category) {
-    return this.db.addItem(this.COLLECTION_NAME, category);
+    return this.categoriesDb.addItem(this.COLLECTION_NAME, category);
   }
 
   remove(id) {
-    return this.db.removeItem(this.COLLECTION_NAME, id);
+    return this.categoriesDb.removeItem(this.COLLECTION_NAME, id);
   }
 }
