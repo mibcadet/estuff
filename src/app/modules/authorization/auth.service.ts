@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import * as firebase from 'firebase/app';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFirestore, AngularFirestoreDocument } from 'angularfire2/firestore';
-import { Observable } from 'rxjs/Observable';
+import { Observable, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { User } from '../../models/user';
 
@@ -13,14 +13,14 @@ export class AuthService {
 
   constructor(private afAuth: AngularFireAuth,
     private afs: AngularFirestore) {
-    this.user$ = this.afAuth.authState
-      .switchMap(user => {
+    this.user$ = this.afAuth.authState.pipe(
+      switchMap(user => {
         if (user) {
           return this.afs.doc<User>(`users/${user.uid}`).valueChanges();
         } else {
-          return Observable.of(null);
+          return of(null);
         }
-      });
+      }));
   }
 
   isLoggedIn() {

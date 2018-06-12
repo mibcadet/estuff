@@ -5,24 +5,22 @@ const PLUGINS = [
   'karma-chrome-launcher',
   'karma-jasmine-html-reporter',
   'karma-coverage-istanbul-reporter',
-  '@angular/cli/plugins/karma'
+  '@angular-devkit/build-angular/plugins/karma'
 ];
 
 function setConfiguration(config) {
   config.set({
     basePath: '',
-    frameworks: ['jasmine', '@angular/cli'],
+    frameworks: ['jasmine', '@angular-devkit/build-angular'],
     plugins: PLUGINS.map(plugin => require(plugin)),
     client:{
       clearContext: false // leave Jasmine Spec Runner output visible in browser
     },
     coverageIstanbulReporter: {
-      reports: [ 'html', 'lcovonly' ],
+      dir: require('path').join(__dirname, 'coverage'), reports: [ 'html', 'lcovonly' ],
       fixWebpackSourcePaths: true
     },
-    angularCli: {
-      environment: 'dev'
-    },
+    
     reporters: ['progress', 'kjhtml'],
     port: 9876,
     colors: true,

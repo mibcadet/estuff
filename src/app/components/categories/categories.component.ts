@@ -1,5 +1,5 @@
 import { Component, Output, EventEmitter } from '@angular/core';
-import { Subject } from 'rxjs/Subject';
+import { Subject } from 'rxjs';
 import { Category } from '../../models/categories';
 import { CategoriesService } from '../../services/categories.service';
 import { AuthService } from '../../modules/authorization/auth.service';

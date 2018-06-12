@@ -3,7 +3,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Product } from '../../models/products';
 import { ProductsService } from '../../services/products.service';
 import { Query } from '../../models/query';
-import { Subject } from 'rxjs/Subject';
+import { Subject } from 'rxjs';
 import { User } from '../../models/user';
 import { CartsService } from '../../services/carts.service';
 

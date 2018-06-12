@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
-import { Observable } from 'rxjs/Observable';
+import { switchMap } from 'rxjs/operators';
+
+
+import { Observable } from 'rxjs';
 import { Query } from '../../../models/query';
 
 @Injectable()
@@ -15,7 +18,7 @@ export class DatabaseService {
 
   getItems(collection: string, query?: Query) {
     if (query) {
-      return query.value.switchMap(filter => this.getItemsCollection(collection, query, filter));
+      return query.value.pipe(switchMap(filter => this.getItemsCollection(collection, query, filter)));
     }
     return this.afs.collection(collection).valueChanges();
   }
